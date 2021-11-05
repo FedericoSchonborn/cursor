@@ -106,7 +106,7 @@ func ExampleCursor_IsEmpty() {
 }
 
 func TestWriter(t *testing.T) {
-	w := cursor.New([]byte{})
+	w := cursor.Nil()
 	var (
 		n   int
 		err error

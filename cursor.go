@@ -25,6 +25,11 @@ func New(buf []byte) *Cursor {
 	}
 }
 
+// Nil initializes a new Cursor wrapping a nil slice.
+func Nil() *Cursor {
+	return New(nil)
+}
+
 // Read reads all of r and initializes a new Cursor wrapping the data.
 func Read(r io.Reader) (*Cursor, error) {
 	buf, err := io.ReadAll(r)
