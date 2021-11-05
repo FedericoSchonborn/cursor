@@ -1,3 +1,4 @@
+// Package cursor provides a Go implementation of Rust's Cursor.
 package cursor
 
 import (
@@ -6,13 +7,17 @@ import (
 	"io"
 )
 
+// TODO(fdschonborn): Improve documentation.
+
 var _ io.ReadWriteSeeker = (*Cursor)(nil)
 
+// Cursor wraps an in-memory buffer and provides it with a Seek implementation.
 type Cursor struct {
 	buf []byte
 	pos int
 }
 
+// New initializes a new Cursor wrapping buf.
 func New(buf []byte) *Cursor {
 	return &Cursor{
 		buf: buf,
@@ -20,6 +25,7 @@ func New(buf []byte) *Cursor {
 	}
 }
 
+// Read reads all of r and initializes a new Cursor wrapping the data.
 func Read(r io.Reader) (*Cursor, error) {
 	buf, err := io.ReadAll(r)
 	if err != nil {
@@ -29,27 +35,7 @@ func Read(r io.Reader) (*Cursor, error) {
 	return New(buf), nil
 }
 
-func (c *Cursor) Bytes() []byte {
-	return c.buf
-}
-
-func (c *Cursor) Position() int {
-	return c.pos
-}
-
-func (c *Cursor) SetPosition(pos int) {
-	c.pos = pos
-}
-
-func (c *Cursor) Remaining() []byte {
-	len := min(c.pos, len(c.buf))
-	return c.buf[len:]
-}
-
-func (c *Cursor) IsEmpty() bool {
-	return c.pos >= len(c.buf)
-}
-
+// Clone initializes a new Cursor wrapping a copy of c's inner slice.
 func (c *Cursor) Clone() *Cursor {
 	buf := make([]byte, len(c.buf))
 	copy(buf, c.buf)
@@ -60,12 +46,40 @@ func (c *Cursor) Clone() *Cursor {
 	}
 }
 
+// CloneFrom sets the inner slice of the current Cursor to a copy of other's.
 func (c *Cursor) CloneFrom(other *Cursor) {
 	c.buf = make([]byte, len(other.buf))
 	copy(c.buf, other.buf)
 	c.pos = other.pos
 }
 
+// Bytes returns the inner slice.
+func (c *Cursor) Bytes() []byte {
+	return c.buf
+}
+
+// Position returns the current position.
+func (c *Cursor) Position() int {
+	return c.pos
+}
+
+// SetPosition sets the current position.
+func (c *Cursor) SetPosition(pos int) {
+	c.pos = pos
+}
+
+// Remaining returns the remaining bytes.
+func (c *Cursor) Remaining() []byte {
+	len := min(c.pos, len(c.buf))
+	return c.buf[len:]
+}
+
+// IsEmpty returns whether the Cursor is empty.
+func (c *Cursor) IsEmpty() bool {
+	return c.pos >= len(c.buf)
+}
+
+// Read implements io.Reader for Cursor.
 func (c *Cursor) Read(p []byte) (n int, err error) {
 	r := bytes.NewReader(c.Remaining())
 	if n, err := r.Read(p); err != nil {
@@ -76,6 +90,7 @@ func (c *Cursor) Read(p []byte) (n int, err error) {
 	return n, nil
 }
 
+// Write implements io.Writer for Cursor.
 func (c *Cursor) Write(p []byte) (n int, err error) {
 	if len(c.buf) <= len(p) {
 		buf := make([]byte, len(c.buf)+len(p))
@@ -89,6 +104,7 @@ func (c *Cursor) Write(p []byte) (n int, err error) {
 	return count, nil
 }
 
+// Seek implements io.Seeker for Cursor.
 func (c *Cursor) Seek(offset int64, whence int) (int64, error) {
 	var basePos int
 	switch whence {
