@@ -7,7 +7,7 @@ Package `cursor` provides an implementation of Rust's [`std::io::Cursor`][std-io
 ## Progress
 
 | Rust Method       | Implemented         | Tests | Examples |
-|-------------------|:-------------------:|:-----:|:--------:|
+|-------------------|---------------------|-------|----------|
 | `new`             | Yes (`New`)         | No    | No       |
 | `into_inner`      | Yes (`Bytes`)       | No    | No       |
 | `position`        | Yes (`Position`)    | No    | Yes      |
@@ -16,7 +16,7 @@ Package `cursor` provides an implementation of Rust's [`std::io::Cursor`][std-io
 | `is_empty`        | Yes (`IsEmpty`)     | No    | Yes      |
 
 | Rust Trait | Go Interface | Implemented                | Tests | Examples |
-|------------|--------------|:--------------------------:|:-----:|:--------:|
+|------------|--------------|----------------------------|-------|----------|
 | `Read`     | `Reader`     | Yes (`Read`)               | No    | No       |
 | `Write`    | `Writer`     | Yes (`Write`)              | No    | No       |
 | `Seek`     | `Seeker`     | Yes (`Seek`)               | No    | No       |
