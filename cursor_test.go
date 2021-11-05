@@ -1,7 +1,6 @@
 package cursor_test
 
 import (
-	"bytes"
 	"fmt"
 	"io"
 	"testing"
@@ -141,10 +140,7 @@ func TestWriter(t *testing.T) {
 	}
 
 	expected := []byte{0, 1, 2, 3, 4, 5, 6, 7}
-	actual := w.Bytes()
-
-	result := bytes.Compare(expected, actual)
-	if result != 0 {
-		t.Errorf("Expected %v, got %v", expected, actual)
+	if !w.EqualBytes(expected) {
+		t.Errorf("Expected %v, got %v", expected, w.Bytes())
 	}
 }

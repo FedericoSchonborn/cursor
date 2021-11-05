@@ -126,6 +126,30 @@ func (c *Cursor) Seek(offset int64, whence int) (int64, error) {
 	return int64(newPos), nil
 }
 
+func (c *Cursor) Compare(other *Cursor) int {
+	return bytes.Compare(c.buf, other.buf)
+}
+
+func (c *Cursor) CompareBytes(buf []byte) int {
+	return bytes.Compare(c.buf, buf)
+}
+
+func (c *Cursor) Equal(other *Cursor) bool {
+	return bytes.Equal(c.buf, other.buf)
+}
+
+func (c *Cursor) EqualBytes(buf []byte) bool {
+	return bytes.Equal(c.buf, buf)
+}
+
+func (c *Cursor) EqualFold(other *Cursor) bool {
+	return bytes.EqualFold(c.buf, other.buf)
+}
+
+func (c *Cursor) EqualFoldBytes(buf []byte) bool {
+	return bytes.EqualFold(c.buf, buf)
+}
+
 func min(l, r int) int {
 	if l < r {
 		return l
