@@ -9,7 +9,7 @@ import (
 	"github.com/fdschonborn/go-cursor"
 )
 
-// TODO(fdschonborn): Port missing tests and examples.
+// TODO(fdschonborn): Port missing tests and examples (Reader, Seeker).
 
 func Example() {
 	writeTenBytesAtEnd := func(ws io.WriteSeeker) error {
