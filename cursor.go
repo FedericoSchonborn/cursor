@@ -25,8 +25,8 @@ func New(buf []byte) *Cursor {
 	}
 }
 
-// Nil initializes a new Cursor wrapping a nil slice.
-func Nil() *Cursor {
+// Empty initializes a new Cursor wrapping an empty slice.
+func Empty() *Cursor {
 	return New(nil)
 }
 
@@ -86,11 +86,11 @@ func (c *Cursor) IsEmpty() bool {
 
 // Read implements io.Reader for Cursor.
 func (c *Cursor) Read(p []byte) (n int, err error) {
-	r := bytes.NewReader(c.Remaining())
-	if n, err := r.Read(p); err != nil {
-		return n, err
+	if c.pos >= len(c.buf) {
+		return -1, io.EOF
 	}
 
+	n = copy(p, c.buf[c.pos:])
 	c.pos += n
 	return n, nil
 }
