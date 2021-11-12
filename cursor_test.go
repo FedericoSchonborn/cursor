@@ -1,6 +1,7 @@
 package cursor_test
 
 import (
+	"bytes"
 	"fmt"
 	"io"
 	"testing"
@@ -35,15 +36,15 @@ func Example() {
 	// [0 1 2 3 4 5 6 7 8 9]
 }
 
-func ExampleCursor_Position() {
+func ExampleCursor_Offset() {
 	buf := cursor.New([]byte{1, 2, 3, 4, 5})
-	fmt.Println(buf.Position())
+	fmt.Println(buf.Offset())
 
 	buf.Seek(2, io.SeekCurrent)
-	fmt.Println(buf.Position())
+	fmt.Println(buf.Offset())
 
 	buf.Seek(-1, io.SeekCurrent)
-	fmt.Println(buf.Position())
+	fmt.Println(buf.Offset())
 
 	// Output:
 	// 0
@@ -51,15 +52,15 @@ func ExampleCursor_Position() {
 	// 1
 }
 
-func ExampleCursor_SetPosition() {
+func ExampleCursor_SetOffset() {
 	buf := cursor.New([]byte{1, 2, 3, 4, 5})
-	fmt.Println(buf.Position())
+	fmt.Println(buf.Offset())
 
-	buf.SetPosition(2)
-	fmt.Println(buf.Position())
+	buf.SetOffset(2)
+	fmt.Println(buf.Offset())
 
-	buf.SetPosition(4)
-	fmt.Println(buf.Position())
+	buf.SetOffset(4)
+	fmt.Println(buf.Offset())
 
 	// Output:
 	// 0
@@ -71,13 +72,13 @@ func ExampleCursor_Remaining() {
 	buf := cursor.New([]byte{1, 2, 3, 4, 5})
 	fmt.Println(buf.Remaining())
 
-	buf.SetPosition(2)
+	buf.SetOffset(2)
 	fmt.Println(buf.Remaining())
 
-	buf.SetPosition(4)
+	buf.SetOffset(4)
 	fmt.Println(buf.Remaining())
 
-	buf.SetPosition(6)
+	buf.SetOffset(6)
 	fmt.Println(buf.Remaining())
 
 	// Output:
@@ -90,13 +91,13 @@ func ExampleCursor_Remaining() {
 func ExampleCursor_IsEmpty() {
 	buf := cursor.New([]byte{1, 2, 3, 4, 5})
 
-	buf.SetPosition(2)
+	buf.SetOffset(2)
 	fmt.Println(!buf.IsEmpty())
 
-	buf.SetPosition(5)
+	buf.SetOffset(5)
 	fmt.Println(buf.IsEmpty())
 
-	buf.SetPosition(10)
+	buf.SetOffset(10)
 	fmt.Println(buf.IsEmpty())
 
 	// Output:
@@ -140,7 +141,8 @@ func TestWriter(t *testing.T) {
 	}
 
 	expected := []byte{0, 1, 2, 3, 4, 5, 6, 7}
-	if !w.EqualBytes(expected) {
-		t.Errorf("Expected %v, got %v", expected, w.Bytes())
+	result := w.Bytes()
+	if !bytes.Equal(result, expected) {
+		t.Errorf("Expected %v, got %v", expected, result)
 	}
 }

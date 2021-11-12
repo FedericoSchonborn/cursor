@@ -35,14 +35,14 @@ func Example() {
 
 ## Status
 
-| Method            | Implemented         | Tests | Examples |
-| ----------------- | ------------------- | ----- | -------- |
-| `new`             | Yes (`New`)         | No    | No       |
-| `into_inner`      | Yes (`Bytes`)       | No    | No       |
-| `position`        | Yes (`Position`)    | No    | Yes      |
-| `set_position`    | Yes (`SetPosition`) | No    | Yes      |
-| `remaining_slice` | Yes (`Remaining`)   | No    | Yes      |
-| `is_empty`        | Yes (`IsEmpty`)     | No    | Yes      |
+| Method            | Implemented       | Tests | Examples |
+| ----------------- | ----------------- | ----- | -------- |
+| `new`             | Yes (`New`)       | No    | No       |
+| `into_inner`      | Yes (`IntoBytes`) | No    | No       |
+| `position`        | Yes (`Offset`)    | No    | Yes      |
+| `set_position`    | Yes (`SetOffset`) | No    | Yes      |
+| `remaining_slice` | Yes (`Remaining`) | No    | Yes      |
+| `is_empty`        | Yes (`IsEmpty`)   | No    | Yes      |
 
 | Trait     | Interface | Implemented                | Tests | Examples |
 | --------- | --------- | -------------------------- | ----- | -------- |
