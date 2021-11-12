@@ -25,21 +25,6 @@ func New(buf []byte) *Cursor {
 	}
 }
 
-// Empty initializes a new Cursor wrapping an empty slice.
-func Empty() *Cursor {
-	return New(nil)
-}
-
-// Read reads all of r and initializes a new Cursor wrapping the data.
-func Read(r io.Reader) (*Cursor, error) {
-	buf, err := io.ReadAll(r)
-	if err != nil {
-		return nil, err
-	}
-
-	return New(buf), nil
-}
-
 // Clone initializes a new Cursor wrapping a copy of c's inner slice.
 func (c *Cursor) Clone() *Cursor {
 	buf := make([]byte, len(c.buf))

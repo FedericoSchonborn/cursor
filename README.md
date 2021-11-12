@@ -51,6 +51,6 @@ func Example() {
 | `Seek`    | `Seeker`  | Yes (`Seek`)               | No    | No       |
 | `Clone`   | N/A       | Yes (`Clone<From>`)        | No    | No       |
 | `Eq`      | N/A       | Yes (`Equal<Fold><Bytes>`) | No    | No       |
-| `Default` | N/A       | Yes (`Empty`)              | No    | No       |
+| `Default` | N/A       | N/A (`Cursor{}`)           | No    | No       |
 
 [std-io-cursor]: https://doc.rust-lang.org/stable/std/io/struct.Cursor.html
