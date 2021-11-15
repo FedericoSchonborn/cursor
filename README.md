@@ -13,10 +13,8 @@ func Example() {
             return err
         }
 
-        for i := byte(0); i < 10; i++ {
-            if _, err := ws.Write([]byte{i}); err != nil {
-                return err
-            }
+        if _, err := ws.Write([]byte{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}); err != nil {
+            return err
         }
 
         return nil
