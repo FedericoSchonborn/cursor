@@ -84,7 +84,7 @@ func (c *Cursor) CloneFrom(other *Cursor) {
 // Read implements io.Reader for Cursor.
 func (c *Cursor) Read(p []byte) (n int, err error) {
 	if c.offset >= len(c.bytes) {
-		return -1, io.EOF
+		return 0, io.EOF
 	}
 
 	n = copy(p, c.bytes[c.offset:])
