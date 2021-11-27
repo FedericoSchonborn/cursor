@@ -33,22 +33,29 @@ func Example() {
 
 ## Status
 
-| Method            | Implemented       | Tests | Examples |
-| ----------------- | ----------------- | ----- | -------- |
-| `new`             | Yes (`New`)       | No    | No       |
-| `into_inner`      | Yes (`IntoBytes`) | No    | No       |
-| `position`        | Yes (`Offset`)    | No    | Yes      |
-| `set_position`    | Yes (`SetOffset`) | No    | Yes      |
-| `remaining_slice` | Yes (`Remaining`) | No    | Yes      |
-| `is_empty`        | Yes (`IsEmpty`)   | No    | Yes      |
+| Method         | Implemented       | Tests | Examples |
+| -------------- | ----------------- | ----- | -------- |
+| `new`          | Yes (`New`)       | No    | No       |
+| `into_inner`   | Yes (`Unwrap`)    | No    | No       |
+| `position`     | Yes (`Offset`)    | No    | Yes      |
+| `set_position` | Yes (`SetOffset`) | No    | Yes      |
+
+### Traits
 
 | Trait     | Interface | Implemented                   | Tests | Examples |
 | --------- | --------- | ----------------------------- | ----- | -------- |
 | `Read`    | `Reader`  | Yes (`Read`)                  | No    | No       |
 | `Write`   | `Writer`  | Yes (`Write`)                 | No    | No       |
 | `Seek`    | `Seeker`  | Yes (`Seek`)                  | No    | No       |
-| `Clone`   | N/A       | Yes (`Clone<From>`)           | No    | No       |
-| `Eq`      | N/A       | N/A (use `bytes.Equal<Fold>`) | No    | No       |
-| `Default` | N/A       | N/A (`Cursor{}`)              | No    | No       |
+| `Clone`   | N/A       | Yes (`Clone` and `CloneFrom`) | No    | No       |
+| `Eq`      | N/A       | N/A (use `bytes.Equal`        | No    | No       |
+| `Default` | N/A       | N/A (use `Cursor{}`)          | No    | No       |
+
+### Unstable Features
+
+| Feature/Build Tag  | Method            | Implemented       | Tests | Examples |
+| ------------------ | ----------------- | ----------------- | ----- | -------- |
+| `cursor_remaining` | `remaining_slice` | Yes (`Remaining`) | No    | Yes      |
+| `cursor_remaining` | `is_empty`        | Yes (`IsEmpty`)   | No    | Yes      |
 
 [std-io-cursor]: https://doc.rust-lang.org/stable/std/io/struct.Cursor.html

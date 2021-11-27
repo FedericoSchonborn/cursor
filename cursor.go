@@ -26,42 +26,6 @@ func New(bytes []byte) *Cursor {
 	}
 }
 
-// Bytes returns the wrapped byte slice.
-func (c *Cursor) Bytes() []byte {
-	return c.bytes
-}
-
-// IntoBytes returns the wrapped byte slice and invalidates the Cursor.
-func (c *Cursor) IntoBytes() []byte {
-	bytes := c.bytes
-	c.bytes = nil
-	c.offset = 0
-	c = nil
-
-	return bytes
-}
-
-// Offset returns the current offset.
-func (c *Cursor) Offset() int {
-	return c.offset
-}
-
-// SetOffset sets the current offset.
-func (c *Cursor) SetOffset(pos int) {
-	c.offset = pos
-}
-
-// Remaining returns the remaining bytes.
-func (c *Cursor) Remaining() []byte {
-	len := min(c.offset, len(c.bytes))
-	return c.bytes[len:]
-}
-
-// IsEmpty returns whether the Cursor is empty.
-func (c *Cursor) IsEmpty() bool {
-	return c.offset >= len(c.bytes)
-}
-
 // Clone creates a new Cursor containing a copy of the wrapped byte slice.
 func (c *Cursor) Clone() *Cursor {
 	bytes := make([]byte, len(c.bytes))
@@ -79,6 +43,31 @@ func (c *Cursor) CloneFrom(other *Cursor) {
 	c.bytes = make([]byte, len(other.bytes))
 	copy(c.bytes, other.bytes)
 	c.offset = other.offset
+}
+
+// Bytes returns the wrapped byte slice.
+func (c *Cursor) Bytes() []byte {
+	return c.bytes
+}
+
+// Unwrap invalidates the Cursor and returns the wrapped byte slice.
+func (c *Cursor) Unwrap() []byte {
+	bytes := c.bytes
+	c.bytes = nil
+	c.offset = 0
+	c = nil
+
+	return bytes
+}
+
+// Offset returns the current offset.
+func (c *Cursor) Offset() int {
+	return c.offset
+}
+
+// SetOffset sets the current offset.
+func (c *Cursor) SetOffset(pos int) {
+	c.offset = pos
 }
 
 // Read implements io.Reader for Cursor.

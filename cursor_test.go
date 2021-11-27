@@ -67,44 +67,6 @@ func ExampleCursor_SetOffset() {
 	// 4
 }
 
-func ExampleCursor_Remaining() {
-	buf := cursor.New([]byte{1, 2, 3, 4, 5})
-	fmt.Println(buf.Remaining())
-
-	buf.SetOffset(2)
-	fmt.Println(buf.Remaining())
-
-	buf.SetOffset(4)
-	fmt.Println(buf.Remaining())
-
-	buf.SetOffset(6)
-	fmt.Println(buf.Remaining())
-
-	// Output:
-	// [1 2 3 4 5]
-	// [3 4 5]
-	// [5]
-	// []
-}
-
-func ExampleCursor_IsEmpty() {
-	buf := cursor.New([]byte{1, 2, 3, 4, 5})
-
-	buf.SetOffset(2)
-	fmt.Println(!buf.IsEmpty())
-
-	buf.SetOffset(5)
-	fmt.Println(buf.IsEmpty())
-
-	buf.SetOffset(10)
-	fmt.Println(buf.IsEmpty())
-
-	// Output:
-	// true
-	// true
-	// true
-}
-
 func TestWriter(t *testing.T) {
 	w := cursor.Cursor{}
 	var (
