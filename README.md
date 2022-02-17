@@ -20,7 +20,7 @@ func Example() {
         return nil
     }
 
-    buf := cursor.New(make([]byte, 15))
+    buf := cursor.From(make([]byte, 15))
     if err := writeTenBytesAtEnd(buf); err != nil {
         panic(err)
     }
