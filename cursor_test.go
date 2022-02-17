@@ -7,7 +7,7 @@ import (
 	"io"
 	"testing"
 
-	"github.com/fdschonborn/go-cursor"
+	"github.com/fdschonborn/cursor.go"
 )
 
 // TODO(fdschonborn): Port missing tests and examples (Reader, Seeker).
@@ -25,7 +25,7 @@ func Example() {
 		return nil
 	}
 
-	buf := cursor.New(make([]byte, 15))
+	buf := cursor.From(make([]byte, 15))
 	if err := writeTenBytesAtEnd(buf); err != nil {
 		panic(err)
 	}
@@ -36,7 +36,7 @@ func Example() {
 }
 
 func ExampleCursor_Offset() {
-	buf := cursor.New([]byte{1, 2, 3, 4, 5})
+	buf := cursor.From([]byte{1, 2, 3, 4, 5})
 	fmt.Println(buf.Offset())
 
 	buf.Seek(2, io.SeekCurrent)
@@ -52,7 +52,7 @@ func ExampleCursor_Offset() {
 }
 
 func ExampleCursor_SetOffset() {
-	buf := cursor.New([]byte{1, 2, 3, 4, 5})
+	buf := cursor.From([]byte{1, 2, 3, 4, 5})
 	fmt.Println(buf.Offset())
 
 	buf.SetOffset(2)
@@ -109,7 +109,7 @@ func TestWriter(t *testing.T) {
 }
 
 func TestReader(t *testing.T) {
-	r := cursor.New([]byte{0, 1, 2, 3, 4, 5, 6, 7})
+	r := cursor.From([]byte{0, 1, 2, 3, 4, 5, 6, 7})
 	var (
 		buf    []byte
 		b      []byte
@@ -197,7 +197,7 @@ func TestReader(t *testing.T) {
 
 func TestReadAll(t *testing.T) {
 	bs := []byte{0, 1, 2, 3, 4, 5, 6, 7}
-	r := cursor.New(bs)
+	r := cursor.From(bs)
 	v, err := io.ReadAll(r)
 	if err != nil {
 		t.Fatal(err)

@@ -5,11 +5,11 @@ package cursor_test
 import (
 	"fmt"
 
-	"github.com/fdschonborn/go-cursor"
+	"github.com/fdschonborn/cursor.go"
 )
 
 func ExampleCursor_Remaining() {
-	buf := cursor.New([]byte{1, 2, 3, 4, 5})
+	buf := cursor.From([]byte{1, 2, 3, 4, 5})
 	fmt.Println(buf.Remaining())
 
 	buf.SetOffset(2)
@@ -29,7 +29,7 @@ func ExampleCursor_Remaining() {
 }
 
 func ExampleCursor_IsEmpty() {
-	buf := cursor.New([]byte{1, 2, 3, 4, 5})
+	buf := cursor.From([]byte{1, 2, 3, 4, 5})
 
 	buf.SetOffset(2)
 	fmt.Println(!buf.IsEmpty())

@@ -2,6 +2,7 @@
 package cursor
 
 import (
+	"bytes"
 	"errors"
 	"io"
 	"math/bits"
@@ -18,8 +19,15 @@ type Cursor struct {
 	offset int
 }
 
-// New creates a new Cursor wrapping the given byte slice.
-func New(bytes []byte) *Cursor {
+// New creates a new Cursor wrapping an uninitialized byte slice.
+//
+// New and Cursor{} are equivalent.
+func New() *Cursor {
+	return From(nil)
+}
+
+// From creates a new Cursor wrapping the given byte slice.
+func From(bytes []byte) *Cursor {
 	return &Cursor{
 		bytes:  bytes,
 		offset: 0,
@@ -95,6 +103,14 @@ func (c *Cursor) Write(p []byte) (n int, err error) {
 	return count, nil
 }
 
+func (c *Cursor) Compare(other *Cursor) int {
+	return bytes.Compare(c.bytes, other.bytes)
+}
+
+func (c *Cursor) Equal(other *Cursor) bool {
+	return bytes.Equal(c.bytes, other.bytes)
+}
+
 // Seek implements io.Seeker for Cursor.
 func (c *Cursor) Seek(offset int64, whence int) (int64, error) {
 	var basePos int
@@ -134,12 +150,12 @@ func min(l, r int) int {
 	return r
 }
 
-func checkedAdd64(x, y uint64) (result uint64, ok bool) {
+func checkedAdd64(x, y uint64) (_ uint64, ok bool) {
 	result, carry := bits.Add64(x, y, 0)
 	return result, carry == 0
 }
 
-func checkedSub64(x, y uint64) (result uint64, ok bool) {
+func checkedSub64(x, y uint64) (_ uint64, ok bool) {
 	result, borrow := bits.Sub64(x, y, 0)
 	return result, borrow == 0
 }

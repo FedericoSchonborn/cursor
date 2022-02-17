@@ -1,6 +1,6 @@
 # Cursor
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/fdschonborn/go-cursor.svg)](https://pkg.go.dev/github.com/fdschonborn/go-cursor)
+[![Go Reference](https://pkg.go.dev/badge/github.com/fdschonborn/cursor.go.svg)](https://pkg.go.dev/github.com/fdschonborn/cursor.go)
 
 Package `cursor` provides an implementation of Rust's [`std::io::Cursor`][std-io-cursor] for Go.
 
@@ -35,7 +35,7 @@ func Example() {
 
 | Method         | Implemented       | Tests | Examples |
 | -------------- | ----------------- | ----- | -------- |
-| `new`          | Yes (`New`)       | No    | No       |
+| `new`          | Yes (`From`)      | No    | No       |
 | `into_inner`   | Yes (`Unwrap`)    | No    | No       |
 | `position`     | Yes (`Offset`)    | No    | Yes      |
 | `set_position` | Yes (`SetOffset`) | No    | Yes      |
@@ -48,8 +48,8 @@ func Example() {
 | `Write`   | `Writer`  | Yes (`Write`)                 | No    | No       |
 | `Seek`    | `Seeker`  | Yes (`Seek`)                  | No    | No       |
 | `Clone`   | N/A       | Yes (`Clone` and `CloneFrom`) | No    | No       |
-| `Eq`      | N/A       | N/A (use `bytes.Equal`        | No    | No       |
-| `Default` | N/A       | N/A (use `Cursor{}`)          | No    | No       |
+| `Eq`      | N/A       | Yes (`Equal`)                 | No    | No       |
+| `Default` | N/A       | Yes (`New`)                   | No    | No       |
 
 ### Unstable Features
 
