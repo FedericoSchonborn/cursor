@@ -5,7 +5,7 @@ package cursor_test
 import (
 	"fmt"
 
-	"github.com/fdschonborn/cursor.go"
+	"github.com/FedericoSchonborn/go-cursor"
 )
 
 func ExampleCursor_Remaining() {

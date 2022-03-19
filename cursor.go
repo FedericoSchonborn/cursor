@@ -8,7 +8,7 @@ import (
 	"math/bits"
 )
 
-// TODO(fdschonborn): Improve documentation.
+// TODO: Improve documentation.
 
 var _ io.ReadWriteSeeker = (*Cursor)(nil)
 
@@ -23,14 +23,27 @@ type Cursor struct {
 //
 // New and Cursor{} are equivalent.
 func New() *Cursor {
-	return From(nil)
+	return &Cursor{
+		bytes: nil,
+	}
 }
 
 // From creates a new Cursor wrapping the given byte slice.
 func From(bytes []byte) *Cursor {
 	return &Cursor{
+		bytes: bytes,
+	}
+}
+
+// Clone sets the wrapped byte slice to a copy of the byte slice contained
+// in other.
+func Clone(other *Cursor) *Cursor {
+	bytes := make([]byte, len(other.bytes))
+	copy(bytes, other.bytes)
+
+	return &Cursor{
 		bytes:  bytes,
-		offset: 0,
+		offset: other.offset,
 	}
 }
 
@@ -43,14 +56,6 @@ func (c *Cursor) Clone() *Cursor {
 		bytes:  bytes,
 		offset: c.offset,
 	}
-}
-
-// CloneFrom sets the wrapped byte slice to a copy of the byte slice contained
-// in other.
-func (c *Cursor) CloneFrom(other *Cursor) {
-	c.bytes = make([]byte, len(other.bytes))
-	copy(c.bytes, other.bytes)
-	c.offset = other.offset
 }
 
 // Bytes returns the wrapped byte slice.

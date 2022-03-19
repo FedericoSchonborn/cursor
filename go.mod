@@ -1,3 +1,3 @@
-module github.com/fdschonborn/cursor.go
+module github.com/FedericoSchonborn/go-cursor
 
-go 1.17
+go 1.18

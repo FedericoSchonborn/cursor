@@ -1,6 +1,6 @@
 # Cursor
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/fdschonborn/cursor.go.svg)](https://pkg.go.dev/github.com/fdschonborn/cursor.go)
+[![Go Reference](https://pkg.go.dev/badge/github.com/FedericoSchonborn/go-cursor.svg)](https://pkg.go.dev/github.com/FedericoSchonborn/go-cursor)
 
 Package `cursor` provides an implementation of Rust's [`std::io::Cursor`][std-io-cursor] for Go.
 
