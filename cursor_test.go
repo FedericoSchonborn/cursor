@@ -68,7 +68,7 @@ func ExampleCursor_SetOffset() {
 }
 
 func TestWriter(t *testing.T) {
-	w := cursor.Cursor{}
+	w := cursor.New()
 	var (
 		n   int
 		err error
