@@ -57,7 +57,6 @@ func main() {
 | `Write`   | `Writer`  | Yes (`Write`)                 | No    | No       |
 | `Seek`    | `Seeker`  | Yes (`Seek`)                  | No    | No       |
 | `Clone`   | N/A       | Yes (`Clone` and `CloneFrom`) | No    | No       |
-| `Eq`      | N/A       | Yes (`Equal`)                 | No    | No       |
 | `Default` | N/A       | Yes (`New`)                   | No    | No       |
 
 ### Unstable Features

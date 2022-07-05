@@ -2,7 +2,6 @@
 package cursor
 
 import (
-	"bytes"
 	"errors"
 	"io"
 	"math/bits"
@@ -106,14 +105,6 @@ func (c *Cursor) Write(p []byte) (n int, err error) {
 	count := copy(c.buf[pos:], p)
 	c.off += count
 	return count, nil
-}
-
-func (c *Cursor) Compare(other *Cursor) int {
-	return bytes.Compare(c.buf, other.buf)
-}
-
-func (c *Cursor) Equal(other *Cursor) bool {
-	return bytes.Equal(c.buf, other.buf)
 }
 
 // Seek implements io.Seeker for Cursor.
