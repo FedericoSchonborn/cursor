@@ -42,7 +42,9 @@ func main() {
 
 ## Status
 
-| Method         | Implemented       | Tests | Examples |
+### Associated Items
+
+|                | Implemented       | Tests | Examples |
 | -------------- | ----------------- | ----- | -------- |
 | `new`          | Yes (`From`)      | No    | No       |
 | `into_inner`   | Yes (`Unwrap`)    | No    | No       |
@@ -51,7 +53,7 @@ func main() {
 
 ### Traits
 
-| Trait     | Interface | Implemented                   | Tests | Examples |
+|           | Interface | Implemented                   | Tests | Examples |
 | --------- | --------- | ----------------------------- | ----- | -------- |
 | `Read`    | `Reader`  | Yes (`Read`)                  | No    | No       |
 | `Write`   | `Writer`  | Yes (`Write`)                 | No    | No       |
@@ -61,9 +63,9 @@ func main() {
 
 ### Unstable Features
 
-| Feature/Build Tag  | Method            | Implemented       | Tests | Examples |
-| ------------------ | ----------------- | ----------------- | ----- | -------- |
-| `cursor_remaining` | `remaining_slice` | Yes (`Remaining`) | No    | Yes      |
-| `cursor_remaining` | `is_empty`        | Yes (`IsEmpty`)   | No    | Yes      |
+|                   | Implemented       | Feature/Build Tag  | Tests | Examples |
+| ----------------- | ----------------- | ------------------ | ----- | -------- |
+| `remaining_slice` | Yes (`Remaining`) | `cursor_remaining` | No    | Yes      |
+| `is_empty`        | Yes (`IsEmpty`)   | `cursor_remaining` | No    | Yes      |
 
 [`std::io::Cursor`]: https://doc.rust-lang.org/stable/std/io/struct.Cursor.html
