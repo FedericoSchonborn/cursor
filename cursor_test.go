@@ -7,7 +7,7 @@ import (
 	"io"
 	"testing"
 
-	"github.com/FedericoSchonborn/go-cursor"
+	"github.com/FedericoSchonborn/cursor"
 )
 
 // TODO: Port missing tests and examples (Reader, Seeker).
@@ -39,10 +39,14 @@ func ExampleCursor_Offset() {
 	buf := cursor.From([]byte{1, 2, 3, 4, 5})
 	fmt.Println(buf.Offset())
 
-	buf.Seek(2, io.SeekCurrent)
+	if _, err := buf.Seek(2, io.SeekCurrent); err != nil {
+		panic(err)
+	}
 	fmt.Println(buf.Offset())
 
-	buf.Seek(-1, io.SeekCurrent)
+	if _, err := buf.Seek(-1, io.SeekCurrent); err != nil {
+		panic(err)
+	}
 	fmt.Println(buf.Offset())
 
 	// Output:

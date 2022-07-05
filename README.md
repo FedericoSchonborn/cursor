@@ -1,13 +1,22 @@
 # Cursor
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/FedericoSchonborn/go-cursor.svg)](https://pkg.go.dev/github.com/FedericoSchonborn/go-cursor)
+[![Go Reference](https://pkg.go.dev/badge/github.com/FedericoSchonborn/cursor.svg)](https://pkg.go.dev/github.com/FedericoSchonborn/cursor)
 
-Package `cursor` provides an implementation of Rust's [`std::io::Cursor`][std-io-cursor] for Go.
+Package `cursor` provides an implementation of Rust's [`std::io::Cursor`] for Go.
 
 ## Example
 
 ```go
-func Example() {
+package main
+
+import (
+    "fmt"
+    "io"
+
+    "github.com/FedericoSchonborn/cursor"
+)
+
+func main() {
     writeTenBytesAtEnd := func(ws io.WriteSeeker) error {
         if _, err := ws.Seek(-10, io.SeekEnd); err != nil {
             return err
@@ -58,4 +67,4 @@ func Example() {
 | `cursor_remaining` | `remaining_slice` | Yes (`Remaining`) | No    | Yes      |
 | `cursor_remaining` | `is_empty`        | Yes (`IsEmpty`)   | No    | Yes      |
 
-[std-io-cursor]: https://doc.rust-lang.org/stable/std/io/struct.Cursor.html
+[`std::io::Cursor`]: https://doc.rust-lang.org/stable/std/io/struct.Cursor.html
