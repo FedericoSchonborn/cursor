@@ -46,20 +46,19 @@ func main() {
 
 |                | Implemented       | Tests | Examples |
 | -------------- | ----------------- | ----- | -------- |
-| `new`          | Yes (`From`)      | No    | No       |
+| `new`          | Yes (`New`)       | No    | No       |
 | `into_inner`   | Yes (`Unwrap`)    | No    | No       |
 | `position`     | Yes (`Offset`)    | No    | Yes      |
 | `set_position` | Yes (`SetOffset`) | No    | Yes      |
 
 ### Traits
 
-|           | Interface | Implemented                   | Tests | Examples |
-| --------- | --------- | ----------------------------- | ----- | -------- |
-| `Read`    | `Reader`  | Yes (`Read`)                  | No    | No       |
-| `Write`   | `Writer`  | Yes (`Write`)                 | No    | No       |
-| `Seek`    | `Seeker`  | Yes (`Seek`)                  | No    | No       |
-| `Clone`   | N/A       | Yes (`Clone` and `CloneFrom`) | No    | No       |
-| `Default` | N/A       | Yes (`New`)                   | No    | No       |
+|         | Interface | Implemented   | Tests | Examples |
+| ------- | --------- | ------------- | ----- | -------- |
+| `Read`  | `Reader`  | Yes (`Read`)  | No    | No       |
+| `Write` | `Writer`  | Yes (`Write`) | No    | No       |
+| `Seek`  | `Seeker`  | Yes (`Seek`)  | No    | No       |
+| `Clone` | N/A       | Yes (`Clone`) | No    | No       |
 
 ### Unstable Features
 

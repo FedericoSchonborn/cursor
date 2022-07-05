@@ -15,22 +15,13 @@ var _ io.ReadWriteSeeker = (*Cursor)(nil)
 // io.Seeker implementations.
 type Cursor struct {
 	buf []byte
-	off int
+	pos int
 }
 
-// New creates a new Cursor wrapping an uninitialized byte slice.
-//
-// New and Cursor{} are equivalent.
-func New() *Cursor {
+// New creates a new Cursor wrapping the given slice.
+func New(buf []byte) *Cursor {
 	return &Cursor{
-		buf: nil,
-	}
-}
-
-// From creates a new Cursor wrapping the given byte slice.
-func From(slice []byte) *Cursor {
-	return &Cursor{
-		buf: slice,
+		buf: buf,
 	}
 }
 
@@ -42,7 +33,7 @@ func Clone(other *Cursor) *Cursor {
 
 	return &Cursor{
 		buf: bytes,
-		off: other.off,
+		pos: other.pos,
 	}
 }
 
@@ -53,7 +44,7 @@ func (c *Cursor) Clone() *Cursor {
 
 	return &Cursor{
 		buf: bytes,
-		off: c.off,
+		pos: c.pos,
 	}
 }
 
@@ -66,30 +57,30 @@ func (c *Cursor) Bytes() []byte {
 func (c *Cursor) Unwrap() []byte {
 	bytes := c.buf
 	c.buf = nil
-	c.off = 0
+	c.pos = 0
 	c = nil
 
 	return bytes
 }
 
-// Offset returns the current offset.
-func (c *Cursor) Offset() int {
-	return c.off
+// Position returns the current position of this cursor.
+func (c *Cursor) Position() int {
+	return c.pos
 }
 
-// SetOffset sets the current offset.
-func (c *Cursor) SetOffset(pos int) {
-	c.off = pos
+// SetPosition sets the position of this cursor.
+func (c *Cursor) SetPosition(pos int) {
+	c.pos = pos
 }
 
 // Read implements io.Reader for Cursor.
 func (c *Cursor) Read(p []byte) (n int, err error) {
-	if c.off >= len(c.buf) {
+	if c.pos >= len(c.buf) {
 		return 0, io.EOF
 	}
 
-	n = copy(p, c.buf[c.off:])
-	c.off += n
+	n = copy(p, c.buf[c.pos:])
+	c.pos += n
 	return n, nil
 }
 
@@ -101,9 +92,9 @@ func (c *Cursor) Write(p []byte) (n int, err error) {
 		c.buf = bytes
 	}
 
-	pos := min(c.off, len(c.buf))
+	pos := min(c.pos, len(c.buf))
 	count := copy(c.buf[pos:], p)
-	c.off += count
+	c.pos += count
 	return count, nil
 }
 
@@ -112,12 +103,12 @@ func (c *Cursor) Seek(offset int64, whence int) (int64, error) {
 	var basePos int
 	switch whence {
 	case io.SeekStart:
-		c.off = int(offset)
+		c.pos = int(offset)
 		return offset, nil
 	case io.SeekEnd:
 		basePos = len(c.buf)
 	case io.SeekCurrent:
-		basePos = c.off
+		basePos = c.pos
 	}
 
 	var (
@@ -134,7 +125,7 @@ func (c *Cursor) Seek(offset int64, whence int) (int64, error) {
 		return -1, errors.New("invalid seek to negative or overflowing position")
 	}
 
-	c.off = int(newPos)
+	c.pos = int(newPos)
 	return int64(newPos), nil
 }
 

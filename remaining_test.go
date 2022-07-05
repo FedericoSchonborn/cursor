@@ -9,16 +9,16 @@ import (
 )
 
 func ExampleCursor_Remaining() {
-	buf := cursor.From([]byte{1, 2, 3, 4, 5})
+	buf := cursor.New([]byte{1, 2, 3, 4, 5})
 	fmt.Println(buf.Remaining())
 
-	buf.SetOffset(2)
+	buf.SetPosition(2)
 	fmt.Println(buf.Remaining())
 
-	buf.SetOffset(4)
+	buf.SetPosition(4)
 	fmt.Println(buf.Remaining())
 
-	buf.SetOffset(6)
+	buf.SetPosition(6)
 	fmt.Println(buf.Remaining())
 
 	// Output:
@@ -29,15 +29,15 @@ func ExampleCursor_Remaining() {
 }
 
 func ExampleCursor_IsEmpty() {
-	buf := cursor.From([]byte{1, 2, 3, 4, 5})
+	buf := cursor.New([]byte{1, 2, 3, 4, 5})
 
-	buf.SetOffset(2)
+	buf.SetPosition(2)
 	fmt.Println(!buf.IsEmpty())
 
-	buf.SetOffset(5)
+	buf.SetPosition(5)
 	fmt.Println(buf.IsEmpty())
 
-	buf.SetOffset(10)
+	buf.SetPosition(10)
 	fmt.Println(buf.IsEmpty())
 
 	// Output:

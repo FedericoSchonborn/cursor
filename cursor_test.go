@@ -25,7 +25,7 @@ func Example() {
 		return nil
 	}
 
-	buf := cursor.From(make([]byte, 15))
+	buf := cursor.New(make([]byte, 15))
 	if err := writeTenBytesAtEnd(buf); err != nil {
 		panic(err)
 	}
@@ -35,19 +35,19 @@ func Example() {
 	// [0 1 2 3 4 5 6 7 8 9]
 }
 
-func ExampleCursor_Offset() {
-	buf := cursor.From([]byte{1, 2, 3, 4, 5})
-	fmt.Println(buf.Offset())
+func ExampleCursor_Position() {
+	buf := cursor.New([]byte{1, 2, 3, 4, 5})
+	fmt.Println(buf.Position())
 
 	if _, err := buf.Seek(2, io.SeekCurrent); err != nil {
 		panic(err)
 	}
-	fmt.Println(buf.Offset())
+	fmt.Println(buf.Position())
 
 	if _, err := buf.Seek(-1, io.SeekCurrent); err != nil {
 		panic(err)
 	}
-	fmt.Println(buf.Offset())
+	fmt.Println(buf.Position())
 
 	// Output:
 	// 0
@@ -55,15 +55,15 @@ func ExampleCursor_Offset() {
 	// 1
 }
 
-func ExampleCursor_SetOffset() {
-	buf := cursor.From([]byte{1, 2, 3, 4, 5})
-	fmt.Println(buf.Offset())
+func ExampleCursor_SetPosition() {
+	buf := cursor.New([]byte{1, 2, 3, 4, 5})
+	fmt.Println(buf.Position())
 
-	buf.SetOffset(2)
-	fmt.Println(buf.Offset())
+	buf.SetPosition(2)
+	fmt.Println(buf.Position())
 
-	buf.SetOffset(4)
-	fmt.Println(buf.Offset())
+	buf.SetPosition(4)
+	fmt.Println(buf.Position())
 
 	// Output:
 	// 0
@@ -72,7 +72,7 @@ func ExampleCursor_SetOffset() {
 }
 
 func TestWriter(t *testing.T) {
-	w := cursor.New()
+	w := cursor.New(nil)
 	var (
 		n   int
 		err error
@@ -113,7 +113,7 @@ func TestWriter(t *testing.T) {
 }
 
 func TestReader(t *testing.T) {
-	r := cursor.From([]byte{0, 1, 2, 3, 4, 5, 6, 7})
+	r := cursor.New([]byte{0, 1, 2, 3, 4, 5, 6, 7})
 	var (
 		buf    []byte
 		b      []byte
@@ -132,7 +132,7 @@ func TestReader(t *testing.T) {
 		t.Errorf("expected n to be 0, got %d", n)
 	}
 
-	offset = r.Offset()
+	offset = r.Position()
 	if offset != 0 {
 		t.Errorf("expected offset to be 0, got %d", offset)
 	}
@@ -147,7 +147,7 @@ func TestReader(t *testing.T) {
 		t.Errorf("expected n to be 1, got %d", n)
 	}
 
-	offset = r.Offset()
+	offset = r.Position()
 	if offset != 1 {
 		t.Errorf("expected offset to be 1, got %d", offset)
 	}
@@ -162,7 +162,7 @@ func TestReader(t *testing.T) {
 		t.Errorf("expected n to be 4, got %d", n)
 	}
 
-	offset = r.Offset()
+	offset = r.Position()
 	if offset != 5 {
 		t.Errorf("expected offset to be 5, got %d", offset)
 	}
@@ -201,7 +201,7 @@ func TestReader(t *testing.T) {
 
 func TestReadAll(t *testing.T) {
 	bs := []byte{0, 1, 2, 3, 4, 5, 6, 7}
-	r := cursor.From(bs)
+	r := cursor.New(bs)
 	v, err := io.ReadAll(r)
 	if err != nil {
 		t.Fatal(err)
